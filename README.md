@@ -57,48 +57,38 @@ module seven_segment_display (
     end
 endmodule
 
+Output: ![bcd to 7](https://github.com/user-attachments/assets/8d389940-2cca-4cb2-90ba-418012e06641)
+
+
 
 Testbench for Seven-Segment Display:
 
-// seven_segment_display_tb.v
-`timescale 1ns / 1ps
+module tb_seven_segment_display;
+    // Testbench signals
+    reg [3:0] bcd;         // 4-bit input for BCD
+    wire [6:0] seg;        // 7-segment display output
 
-module seven_segment_display_tb;
-    // Inputs
-    reg [3:0] binary_input;
-
-    // Outputs
-    wire [6:0] seg_output;
-
-    // Instantiate the Unit Under Test (UUT)
+// Instantiate the seven_segment_display module
     seven_segment_display uut (
-        .binary_input(binary_input),
-        .seg_output(seg_output)
+        .bcd(bcd),
+        .seg(seg)
     );
 
-    // Test procedure
+// Testbench procedure
     initial begin
-        // Initialize inputs
-        binary_input = 4'b0000;
-
-        // Apply test cases
-        #10 binary_input = 4'b0000; // Display 0
-        #10 binary_input = 4'b0001; // Display 1
-        #10 binary_input = 4'b0010; // Display 2
-        #10 binary_input = 4'b0011; // Display 3
-        #10 binary_input = 4'b0100; // Display 4
-        #10 binary_input = 4'b0101; // Display 5
-        #10 binary_input = 4'b0110; // Display 6
-        #10 binary_input = 4'b0111; // Display 7
-        #10 binary_input = 4'b1000; // Display 8
-        #10 binary_input = 4'b1001; // Display 9
-        #10 $stop;
-    end
-
-    // Monitor outputs
-    initial begin
-        $monitor("Time=%0t | binary_input=%b | seg_output=%b", $time, binary_input, seg_output);
-    end
+        bcd = 4'b0000; #10; // 0
+        bcd = 4'b0001; #10; // 1
+        bcd = 4'b0010; #10; // 2
+        bcd = 4'b0011; #10;
+        bcd = 4'b0100; #10;
+        bcd = 4'b0101; #10;
+        bcd = 4'b0110; #10;
+        bcd = 4'b0111; #10;
+        bcd = 4'b1000; #10;
+        bcd = 4'b1001; #10;
+        
+  $stop;
+end
 endmodule
 
 Conclusion
